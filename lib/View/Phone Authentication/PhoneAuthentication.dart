@@ -16,6 +16,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
     final height = MediaQuery.sizeOf(context).height * 1;
     final width = MediaQuery.sizeOf(context).width * 1;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body:  Column(
           children: [
             Container(
