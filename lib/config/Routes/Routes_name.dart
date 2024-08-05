@@ -6,6 +6,7 @@ class RoutesName {
 
 
   //Authentication
+  static const String phoneAuthentication = 'PhoneAuthentication';
 
 
   //Screens in app

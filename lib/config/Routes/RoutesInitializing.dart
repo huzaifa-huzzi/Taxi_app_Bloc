@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:taxi_app/View/Home/homeScreen.dart';
+import 'package:taxi_app/View/Phone%20Authentication/PhoneAuthentication.dart';
 import 'package:taxi_app/View/Splash/SplashScreen.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
 
@@ -14,6 +15,9 @@ class Routes {
 
       case RoutesName.homeScreen:
         return MaterialPageRoute(builder: (context) =>const  HomeScreen());
+
+      case RoutesName.phoneAuthentication:
+        return MaterialPageRoute(builder: (context) =>const  PhoneAuthentication());
 
 
       default :
