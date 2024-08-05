@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:taxi_app/config/Routes/RoutesInitializing.dart';
+import 'package:taxi_app/config/Routes/Routes_name.dart';
 import 'package:taxi_app/firebase_options.dart';
 
 void main() async {
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:
+      initialRoute: RoutesName.splashScreen,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
