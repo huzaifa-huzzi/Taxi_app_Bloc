@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_app/config/Routes/Routes_name.dart';
+
 
 class PhoneAuthentication extends StatefulWidget {
   const PhoneAuthentication({super.key});
@@ -13,8 +15,6 @@ class PhoneAuthentication extends StatefulWidget {
 class _PhoneAuthenticationState extends State<PhoneAuthentication> {
   late PhoneAuthenticationBloc _phoneAuthBloc;
   String _phoneNumber = '';
-  String _verificationId = '';
-  String _smsCode = '';
 
   @override
   void initState() {
@@ -36,10 +36,14 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
         child: BlocListener<PhoneAuthenticationBloc, PhoneAuthState>(
           listener: (context, state) {
             if (state is PhoneAuthCodeSent) {
-              _verificationId = state.verificationId;
-              _showSmsCodeDialog();
-            } else if (state is PhoneAuthVerified) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Phone number verified')));
+              Navigator.pushNamed(
+                context,
+                RoutesName.otpVerification,
+                arguments: {
+                  'phoneNumber': _phoneNumber,
+                  'verificationId': state.verificationId,
+                },
+              );
             } else if (state is PhoneAuthError) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
             }
@@ -47,7 +51,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
           child: BlocBuilder<PhoneAuthenticationBloc, PhoneAuthState>(
             builder: (context, state) {
               if (state is PhoneAuthLoading) {
-                return const  Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               return Column(
                 children: [
@@ -56,7 +60,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                     height: MediaQuery.of(context).size.height * 0.5,
                     decoration:const  BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/cty.png'), // Ensure this path is correct
+                        image: AssetImage('assets/city_cab.jpg'), // Ensure this path is correct
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -104,32 +108,6 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showSmsCodeDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          title:const  Text('Enter SMS Code'),
-          content: TextField(
-            onChanged: (value) {
-              _smsCode = value;
-            },
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _phoneAuthBloc.add(PhoneAuthCodeSubmitted(_verificationId, _smsCode));
-              },
-              child:const Text('Submit'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

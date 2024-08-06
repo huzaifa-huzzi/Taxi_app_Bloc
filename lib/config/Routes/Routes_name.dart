@@ -7,7 +7,7 @@ class RoutesName {
 
   //Authentication
   static const String phoneAuthentication = 'PhoneAuthentication';
-
+  static const String otpVerification = 'OtpVerificationScreen';
 
   //Screens in app
   static const String homeScreen = 'HomeScreen';
