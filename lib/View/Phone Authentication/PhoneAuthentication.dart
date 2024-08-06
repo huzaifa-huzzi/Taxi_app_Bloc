@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_event.dart';
+import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_state.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
-
 
 class PhoneAuthentication extends StatefulWidget {
   const PhoneAuthentication({super.key});
@@ -31,6 +32,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => _phoneAuthBloc,
         child: BlocListener<PhoneAuthenticationBloc, PhoneAuthState>(
@@ -58,27 +60,25 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                   // Header image with a background
                   Container(
                     height: MediaQuery.of(context).size.height * 0.5,
-                    decoration:const  BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/city_cab.jpg'), // Ensure this path is correct
+                        image: AssetImage('assets/images/cty.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child:const  Center(
-                      child: Text(
-                        'City Cab',
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                    child: const Text(
+                      'City Cab',
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: IntlPhoneField(
-                      decoration:const  InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Phone Number',
                         border: OutlineInputBorder(
                           borderSide: BorderSide(),
@@ -96,9 +96,9 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () {
-                          _phoneAuthBloc.add(PhoneAuthNumberSubmitted(_phoneNumber));
+                          _phoneAuthBloc.add(PhoneAuthNumberSubmitted(phoneNumber: _phoneNumber));
                         },
-                        child:const  Icon(Icons.arrow_forward),
+                        child: const Icon(Icons.arrow_forward),
                       ),
                     ),
                   ),

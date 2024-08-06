@@ -13,3 +13,10 @@ class RoutesName {
   static const String homeScreen = 'HomeScreen';
 
 }
+
+class OtpVerificationArguments {
+  final String phoneNumber;
+  final String verificationId;
+
+  OtpVerificationArguments(this.phoneNumber, this.verificationId);
+}

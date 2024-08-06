@@ -21,7 +21,13 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>const  PhoneAuthentication());
 
       case RoutesName.otpVerification:
-        return MaterialPageRoute(builder: (context) => const OtpVerificationScreen(phoneNumber: 'null', verificationId: 'null'));
+        final args = settings.arguments as OtpVerificationArguments;
+        return MaterialPageRoute(
+          builder: (context) => OtpVerificationScreen(
+            phoneNumber: args.phoneNumber,
+            verificationId: args.verificationId,
+          ),
+        );
 
       default :
         return MaterialPageRoute(builder: (context){
