@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_event.dart';
-import 'package:taxi_app/Bloc/PhoneAuthentication/phone_auth_state.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
 
 class PhoneAuthentication extends StatefulWidget {
@@ -47,17 +45,15 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                 },
               );
             } else if (state is PhoneAuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
             }
           },
           child: BlocBuilder<PhoneAuthenticationBloc, PhoneAuthState>(
             builder: (context, state) {
-              if (state is PhoneAuthLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
               return Column(
                 children: [
-                  // Header image with a background
                   Container(
                     height: MediaQuery.of(context).size.height * 0.5,
                     decoration: const BoxDecoration(
@@ -96,7 +92,9 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () {
-                          _phoneAuthBloc.add(PhoneAuthNumberSubmitted(phoneNumber: _phoneNumber));
+                          _phoneAuthBloc.add(
+                            PhoneAuthNumberSubmitted(phoneNumber: _phoneNumber),
+                          );
                         },
                         child: const Icon(Icons.arrow_forward),
                       ),
