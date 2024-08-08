@@ -53,7 +53,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
               );
             } else if (state is PhoneAuthVerified) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+               const  SnackBar(
                   content: Text('Phone number verified successfully'),
                   backgroundColor: Colors.green,
                 ),
