@@ -46,13 +46,25 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
               );
             } else if (state is PhoneAuthError) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (state is PhoneAuthVerified) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Phone number verified successfully'),
+                  backgroundColor: Colors.green,
+                ),
               );
             }
           },
           child: BlocBuilder<PhoneAuthenticationBloc, PhoneAuthState>(
             builder: (context, state) {
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height * 0.5,
@@ -62,12 +74,14 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    child: const Text(
-                      'City Cab',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    child: const Center(
+                      child: Text(
+                        'City Cab',
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -92,9 +106,18 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () {
-                          _phoneAuthBloc.add(
-                            PhoneAuthNumberSubmitted(phoneNumber: _phoneNumber),
-                          );
+                          if (_phoneNumber.isNotEmpty) {
+                            _phoneAuthBloc.add(
+                              PhoneAuthNumberSubmitted(phoneNumber: _phoneNumber),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                             const  SnackBar(
+                                content: Text('Please enter a phone number'),
+                                backgroundColor: Colors.orange,
+                              ),
+                            );
+                          }
                         },
                         child: const Icon(Icons.arrow_forward),
                       ),
