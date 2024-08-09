@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_app/Bloc/setUpBloc/set_up_account_bloc.dart';
 import 'package:taxi_app/config/Routes/RoutesInitializing.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
 import 'package:taxi_app/firebase_options.dart';
@@ -18,7 +21,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+        providers:[
+          BlocProvider(create: (_) => AccountSetupBloc(FirebaseDatabase.instance.reference())),
+
+        ] , child: MaterialApp(
       title: 'Taxi App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -26,6 +33,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: RoutesName.accountSetup,
       onGenerateRoute: Routes.generateRoute,
+    ),
     );
   }
 }

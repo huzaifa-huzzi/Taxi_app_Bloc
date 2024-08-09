@@ -4,24 +4,35 @@ import 'package:taxi_app/Bloc/setUpBloc/set_up_account_event.dart';
 import 'package:taxi_app/Bloc/setUpBloc/set_up_account_state.dart';
 
 class AccountSetupBloc extends Bloc<AccountSetupEvent, AccountSetupState> {
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref('users');
+final DatabaseReference _databaseReference;
 
-  AccountSetupBloc() : super(const AccountSetupState());
+AccountSetupBloc(this._databaseReference) : super(AccountSetupState()) {
+on<FirstNameChanged>((event, emit) {
+emit(state.copyWith(firstName: event.firstName));
+});
 
-  @override
-  Stream<AccountSetupState> mapEventToState(AccountSetupEvent event) async* {
-    if (event is FirstNameChanged) {
-      yield state.copyWith(firstName: event.firstName);
-    } else if (event is LastNameChanged) {
-      yield state.copyWith(lastName: event.lastName);
-    } else if (event is EmailChanged) {
-      yield state.copyWith(email: event.email);
-    } else if (event is SubmitAccountSetup) {
-      await _dbRef.push().set({
-        'firstName': state.firstName,
-        'lastName': state.lastName,
-        'email': state.email,
-      });
-    }
-  }
+on<LastNameChanged>((event, emit) {
+emit(state.copyWith(lastName: event.lastName));
+});
+
+on<EmailChanged>((event, emit) {
+emit(state.copyWith(email: event.email));
+});
+
+on<SubmitAccountSetup>((event, emit) async {
+emit(state.copyWith(isSubmitting: true, isFailure: false, isSuccess: false));
+
+try {
+await _databaseReference.child('users').push().set({
+'first_name': state.firstName,
+'last_name': state.lastName,
+'email': state.email,
+});
+
+emit(state.copyWith(isSubmitting: false, isSuccess: true));
+} catch (e) {
+emit(state.copyWith(isSubmitting: false, isFailure: true));
+}
+});
+}
 }

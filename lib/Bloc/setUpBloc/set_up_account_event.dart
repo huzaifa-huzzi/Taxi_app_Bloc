@@ -1,37 +1,20 @@
-import 'package:equatable/equatable.dart';
 
-abstract class AccountSetupEvent extends Equatable {
-  const AccountSetupEvent();
 
-  @override
-  List<Object> get props => [];
-}
+abstract class AccountSetupEvent {}
 
 class FirstNameChanged extends AccountSetupEvent {
   final String firstName;
-
-  const FirstNameChanged(this.firstName);
-
-  @override
-  List<Object> get props => [firstName];
+  FirstNameChanged(this.firstName);
 }
 
 class LastNameChanged extends AccountSetupEvent {
   final String lastName;
-
-  const LastNameChanged(this.lastName);
-
-  @override
-  List<Object> get props => [lastName];
+  LastNameChanged(this.lastName);
 }
 
 class EmailChanged extends AccountSetupEvent {
   final String email;
-
-  const EmailChanged(this.email);
-
-  @override
-  List<Object> get props => [email];
+  EmailChanged(this.email);
 }
 
 class SubmitAccountSetup extends AccountSetupEvent {}

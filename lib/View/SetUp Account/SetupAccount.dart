@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:taxi_app/Bloc/setUpBloc/set_up_account_event.dart';
+import 'package:taxi_app/config/Color/Colors.dart';
 
-import '../../Bloc/setUpBloc/set_up_account_bloc.dart'; // Import your Bloc file
+import '../../Bloc/setUpBloc/set_up_account_bloc.dart';
+import '../../Bloc/setUpBloc/set_up_account_event.dart';
 
 class SetUpAccount extends StatefulWidget {
   const SetUpAccount({super.key});
@@ -12,14 +13,14 @@ class SetUpAccount extends StatefulWidget {
 }
 
 class _SetUpAccountState extends State<SetUpAccount> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height * 1;
-    final width = MediaQuery.sizeOf(context).width * 1;
     return Scaffold(
-      appBar: AppBar(title: const  Text('Set Up Account')),
+      appBar: AppBar(
+        title: const Text('Set Up Account'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -27,56 +28,68 @@ class _SetUpAccountState extends State<SetUpAccount> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             const  Text('Fill the details below...', style: TextStyle(fontSize: 16)),
-              SizedBox(height: height * .02),
-              TextFormField(
-                decoration:const  InputDecoration(
-                  labelText: 'First Name',
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  BlocProvider.of<AccountSetupBloc>(context).add(
-                    FirstNameChanged(value),
-                  );
-                },
-                validator: (value) => value!.isEmpty ? 'Required' : null,
+              const Text(
+                'Fill the details below...',
+                style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: height * .02),
-              TextFormField(
-                decoration:const  InputDecoration(
-                  labelText: 'Last Name',
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  BlocProvider.of<AccountSetupBloc>(context).add(
-                    LastNameChanged(value),
-                  );
-                },
-                validator: (value) => value!.isEmpty ? 'Required' : null,
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'First Name',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        context
+                            .read<AccountSetupBloc>()
+                            .add(FirstNameChanged(value));
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Last Name',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        context
+                            .read<AccountSetupBloc>()
+                            .add(LastNameChanged(value));
+                      },
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: height * .02),
+              const SizedBox(height: 20),
               TextFormField(
-                decoration:const  InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) {
-                  BlocProvider.of<AccountSetupBloc>(context).add(
-                    EmailChanged(value),
-                  );
+                  context.read<AccountSetupBloc>().add(EmailChanged(value));
                 },
-                validator: (value) => value!.isEmpty ? 'Required' : null,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
               const Spacer(),
               Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  child:const  Icon(Icons.check),
+                  child:  Icon(Icons.check,color:AppColor.cityBlue,),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      BlocProvider.of<AccountSetupBloc>(context).add(
-                        SubmitAccountSetup(),
-                      );
+                      context
+                          .read<AccountSetupBloc>()
+                          .add(SubmitAccountSetup());
                     }
                   },
                 ),
