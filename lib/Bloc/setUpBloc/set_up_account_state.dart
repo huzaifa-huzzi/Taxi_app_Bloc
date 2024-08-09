@@ -1,6 +1,28 @@
-part of 'set_up_account_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-sealed class SetUpAccountState {}
+class AccountSetupState extends Equatable {
+  final String firstName;
+  final String lastName;
+  final String email;
 
-final class SetUpAccountInitial extends SetUpAccountState {}
+  const AccountSetupState({
+    this.firstName = '',
+    this.lastName = '',
+    this.email = '',
+  });
+
+  AccountSetupState copyWith({
+    String? firstName,
+    String? lastName,
+    String? email,
+  }) {
+    return AccountSetupState(
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+    );
+  }
+
+  @override
+  List<Object> get props => [firstName, lastName, email];
+}

@@ -1,13 +1,27 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:taxi_app/Bloc/setUpBloc/set_up_account_event.dart';
+import 'package:taxi_app/Bloc/setUpBloc/set_up_account_state.dart';
 
-part 'set_up_account_event.dart';
-part 'set_up_account_state.dart';
+class AccountSetupBloc extends Bloc<AccountSetupEvent, AccountSetupState> {
+  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref('users');
 
-class SetUpAccountBloc extends Bloc<SetUpAccountEvent, SetUpAccountState> {
-  SetUpAccountBloc() : super(SetUpAccountInitial()) {
-    on<SetUpAccountEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+  AccountSetupBloc() : super(const AccountSetupState());
+
+  @override
+  Stream<AccountSetupState> mapEventToState(AccountSetupEvent event) async* {
+    if (event is FirstNameChanged) {
+      yield state.copyWith(firstName: event.firstName);
+    } else if (event is LastNameChanged) {
+      yield state.copyWith(lastName: event.lastName);
+    } else if (event is EmailChanged) {
+      yield state.copyWith(email: event.email);
+    } else if (event is SubmitAccountSetup) {
+      await _dbRef.push().set({
+        'firstName': state.firstName,
+        'lastName': state.lastName,
+        'email': state.email,
+      });
+    }
   }
 }
