@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:taxi_app/View/Home/homeScreen.dart';
 import 'package:taxi_app/View/Phone%20Authentication/Otp_Verfication.dart';
 import 'package:taxi_app/View/Phone%20Authentication/PhoneAuthentication.dart';
+import 'package:taxi_app/View/SetUp%20Account/SetupAccount.dart';
 import 'package:taxi_app/View/Splash/SplashScreen.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
 
@@ -28,6 +29,9 @@ class Routes {
             verificationId: args.verificationId,
           ),
         );
+
+      case RoutesName.accountSetup:
+        return MaterialPageRoute(builder: (context) =>const  SetUpAccount());
 
       default :
         return MaterialPageRoute(builder: (context){
