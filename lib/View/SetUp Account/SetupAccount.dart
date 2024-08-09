@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; // Import your Bloc file
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taxi_app/Bloc/setUpBloc/set_up_account_event.dart';
+
+import '../../Bloc/setUpBloc/set_up_account_bloc.dart'; // Import your Bloc file
 
 class SetUpAccount extends StatefulWidget {
   const SetUpAccount({super.key});
@@ -13,8 +16,10 @@ class _SetUpAccountState extends State<SetUpAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height * 1;
+    final width = MediaQuery.sizeOf(context).width * 1;
     return Scaffold(
-      appBar: AppBar(title: Text('Set Up Account')),
+      appBar: AppBar(title: const  Text('Set Up Account')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -22,10 +27,10 @@ class _SetUpAccountState extends State<SetUpAccount> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Fill the details below...', style: TextStyle(fontSize: 16)),
-              SizedBox(height: 20),
+             const  Text('Fill the details below...', style: TextStyle(fontSize: 16)),
+              SizedBox(height: height * .02),
               TextFormField(
-                decoration: InputDecoration(
+                decoration:const  InputDecoration(
                   labelText: 'First Name',
                   border: OutlineInputBorder(),
                 ),
@@ -34,11 +39,11 @@ class _SetUpAccountState extends State<SetUpAccount> {
                     FirstNameChanged(value),
                   );
                 },
-                validator: (value) => value.isEmpty ? 'Required' : null,
+                validator: (value) => value!.isEmpty ? 'Required' : null,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: height * .02),
               TextFormField(
-                decoration: InputDecoration(
+                decoration:const  InputDecoration(
                   labelText: 'Last Name',
                   border: OutlineInputBorder(),
                 ),
@@ -47,11 +52,11 @@ class _SetUpAccountState extends State<SetUpAccount> {
                     LastNameChanged(value),
                   );
                 },
-                validator: (value) => value.isEmpty ? 'Required' : null,
+                validator: (value) => value!.isEmpty ? 'Required' : null,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: height * .02),
               TextFormField(
-                decoration: InputDecoration(
+                decoration:const  InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
@@ -60,15 +65,15 @@ class _SetUpAccountState extends State<SetUpAccount> {
                     EmailChanged(value),
                   );
                 },
-                validator: (value) => value.isEmpty ? 'Required' : null,
+                validator: (value) => value!.isEmpty ? 'Required' : null,
               ),
-              Spacer(),
+              const Spacer(),
               Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
-                  child: Icon(Icons.check),
+                  child:const  Icon(Icons.check),
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       BlocProvider.of<AccountSetupBloc>(context).add(
                         SubmitAccountSetup(),
                       );
