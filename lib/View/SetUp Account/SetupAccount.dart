@@ -5,6 +5,7 @@ import 'package:taxi_app/Bloc/setUpBloc/set_up_account_event.dart';
 import 'package:taxi_app/Bloc/setUpBloc/set_up_account_state.dart';
 import 'package:taxi_app/Utils/flushbar_helper.dart';
 import 'package:taxi_app/config/Color/Colors.dart';
+import 'package:taxi_app/config/Routes/Routes_name.dart';
 
 class SetUpAccount extends StatefulWidget {
   const SetUpAccount({super.key});
@@ -103,6 +104,7 @@ class _SetUpAccountState extends State<SetUpAccount> {
                           context
                               .read<AccountSetupBloc>()
                               .add(SubmitAccountSetup());
+                          Navigator.pushNamed(context, RoutesName.googleMap);
                         }
                       },
                     ),

@@ -12,6 +12,7 @@ class RoutesName {
   //Screens in app
   static const String homeScreen = 'HomeScreen';
   static const String accountSetup = 'SetUpAccount';
+  static const String googleMap = 'GoogleMaps';
 
 }
 

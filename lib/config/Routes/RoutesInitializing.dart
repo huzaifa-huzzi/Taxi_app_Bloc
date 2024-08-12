@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:taxi_app/View/Home/homeScreen.dart';
+import 'package:taxi_app/View/Maps/GoogleMaps.dart';
 import 'package:taxi_app/View/Phone%20Authentication/Otp_Verfication.dart';
 import 'package:taxi_app/View/Phone%20Authentication/PhoneAuthentication.dart';
 import 'package:taxi_app/View/SetUp%20Account/SetupAccount.dart';
@@ -32,6 +32,9 @@ class Routes {
 
       case RoutesName.accountSetup:
         return MaterialPageRoute(builder: (context) =>const  SetUpAccount());
+
+      case RoutesName.googleMap:
+        return MaterialPageRoute(builder: (context) =>const GoogleMaps() );
 
       default :
         return MaterialPageRoute(builder: (context){
