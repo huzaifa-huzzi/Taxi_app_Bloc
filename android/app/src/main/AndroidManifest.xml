@@ -13,7 +13,7 @@
 
     <!-- Google Maps API Key -->
     <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyBtX0OCNh68_ROhWCU6-Ibmz8lB81ByXiE"/>
+        android:value="AIzaSyCDoAXyYuYwkWfJjKf4CPiG-sWcbuIRJtg"/>
 
     <!-- Declare telephony as an optional feature -->
     <uses-feature android:name="android.hardware.telephony" android:required="false"/>
