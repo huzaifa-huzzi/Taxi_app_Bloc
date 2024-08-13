@@ -7,6 +7,8 @@ import 'package:taxi_app/Utils/flushbar_helper.dart';
 import 'package:taxi_app/config/Color/Colors.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
 
+//Add The internet Exception in this...
+
 class SetUpAccount extends StatefulWidget {
   const SetUpAccount({super.key});
 
@@ -25,6 +27,7 @@ class _SetUpAccountState extends State<SetUpAccount> {
       ),
       body: BlocConsumer<AccountSetupBloc, AccountSetupState>(
         listener: (context, state) {
+
           if (state.isSuccess) {
             // Navigate back or to another screen
             Navigator.pushNamed(context, RoutesName.googleMap);

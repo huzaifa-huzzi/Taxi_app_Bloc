@@ -7,6 +7,7 @@ class AccountSetupState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final bool internetException ;
 
   AccountSetupState({
     this.firstName = '',
@@ -15,6 +16,7 @@ class AccountSetupState {
     this.isSubmitting = false,
     this.isSuccess = false,
     this.isFailure = false,
+    this.internetException = false,
   });
 
   AccountSetupState copyWith({
@@ -24,6 +26,7 @@ class AccountSetupState {
     bool? isSubmitting,
     bool? isSuccess,
     bool? isFailure,
+    bool? internetException
   }) {
     return AccountSetupState(
       firstName: firstName ?? this.firstName,
@@ -32,9 +35,10 @@ class AccountSetupState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      internetException: internetException ?? this.internetException
     );
   }
 
   @override
-  List<Object?> get props => [firstName,lastName,email,isSubmitting,isSuccess,isFailure];
+  List<Object?> get props => [firstName,lastName,email,isSubmitting,isSuccess,isFailure,internetException];
 }
