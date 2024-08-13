@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMaps extends StatefulWidget {
-  const GoogleMaps({super.key});
+  const GoogleMaps({Key? key}) : super(key: key);
 
   @override
   State<GoogleMaps> createState() => _GoogleMapsState();
 }
 
 class _GoogleMapsState extends State<GoogleMaps> {
-  Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kgooglePlex = const CameraPosition(
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(33.68, 73.085),
     zoom: 14,
   );
@@ -24,7 +24,7 @@ class _GoogleMapsState extends State<GoogleMaps> {
         automaticallyImplyLeading: false,
       ),
       body: GoogleMap(
-        initialCameraPosition: _kgooglePlex,
+        initialCameraPosition: _kGooglePlex,
         mapType: MapType.hybrid,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
