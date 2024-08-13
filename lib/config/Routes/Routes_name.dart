@@ -13,6 +13,7 @@ class RoutesName {
   static const String homeScreen = 'HomeScreen';
   static const String accountSetup = 'SetUpAccount';
   static const String googleMap = 'GoogleMaps';
+  static const String internetException = 'InternetException';
 
 }
 

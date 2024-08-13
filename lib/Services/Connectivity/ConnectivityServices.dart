@@ -8,8 +8,10 @@ class ConnectivityService {
       final List<ConnectivityResult> result = await _connectivity.checkConnectivity();
       return result != ConnectivityResult.none;
     } catch (e) {
-      // Handle the exception appropriately
       return false;
     }
   }
+
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      _connectivity.onConnectivityChanged;
 }

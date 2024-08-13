@@ -7,8 +7,6 @@ import 'package:taxi_app/Utils/flushbar_helper.dart';
 import 'package:taxi_app/config/Color/Colors.dart';
 import 'package:taxi_app/config/Routes/Routes_name.dart';
 
-import '../../config/Components/InternetConnectivity.dart';
-
 class SetUpAccount extends StatefulWidget {
   const SetUpAccount({super.key});
 
@@ -21,8 +19,7 @@ class _SetUpAccountState extends State<SetUpAccount> {
 
   @override
   Widget build(BuildContext context) {
-    return ConnectivityCheckWidget(
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text('Set Up Account'),
         ),
@@ -106,6 +103,7 @@ class _SetUpAccountState extends State<SetUpAccount> {
                             context
                                 .read<AccountSetupBloc>()
                                 .add(SubmitAccountSetup());
+
                           }
                         },
                       ),
@@ -116,7 +114,6 @@ class _SetUpAccountState extends State<SetUpAccount> {
             );
           },
         ),
-      ),
-    );
+      );
   }
 }
