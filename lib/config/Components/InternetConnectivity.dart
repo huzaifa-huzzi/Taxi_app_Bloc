@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taxi_app/Services/Connectivity/ConnectivityServices.dart'; // Ensure this path is correct
+import 'package:taxi_app/config/Color/Colors.dart';
+
+import '../../Services/Connectivity/ConnectivityServices.dart';
 
 class ConnectivityCheckWidget extends StatelessWidget {
   final Widget child;
@@ -14,14 +16,13 @@ class ConnectivityCheckWidget extends StatelessWidget {
       future: connectivityService.isConnected(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // While waiting for the connectivity result
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator(color:AppColor.cityBlue ,));
         }
 
         if (snapshot.hasData) {
           final bool isConnected = snapshot.data!;
           if (isConnected) {
-            return child; // Return the child widget if connected
+            return child;
           } else {
             return Scaffold(
               body: Center(
@@ -35,7 +36,6 @@ class ConnectivityCheckWidget extends StatelessWidget {
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () async {
-                        // Refresh connectivity status
                         final bool connected = await connectivityService.isConnected();
                         if (connected) {
                           // Rebuild the widget if reconnected

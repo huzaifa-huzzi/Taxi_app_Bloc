@@ -5,10 +5,10 @@ class ConnectivityService {
 
   Future<bool> isConnected() async {
     try {
-      final List<ConnectivityResult> result = await  _connectivity.checkConnectivity();
+      final List<ConnectivityResult> result = await _connectivity.checkConnectivity();
       return result != ConnectivityResult.none;
     } catch (e) {
-      // Handle any exceptions
+      // Handle the exception appropriately
       return false;
     }
   }
