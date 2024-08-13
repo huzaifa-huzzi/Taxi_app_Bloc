@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:taxi_app/Services/Connectivity/ConnectivityServices.dart'; // Ensure this path is correct
 
-import '../../Services/Connectivity/ConnectivityServices.dart';
-
-class ConnectivityListener extends StatelessWidget {
+class ConnectivityCheckWidget extends StatelessWidget {
   final Widget child;
 
-  const ConnectivityListener({Key? key, required this.child}) : super(key: key);
+  const ConnectivityCheckWidget({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final connectivityService = ConnectivityService();
+    final ConnectivityService connectivityService = ConnectivityService();
 
-    return StreamBuilder<bool>(
-      stream: connectivityService.connectivityStream,
+    return FutureBuilder<bool>(
+      future: connectivityService.isConnected(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
+          // While waiting for the connectivity result
           return const Center(child: CircularProgressIndicator());
         }
 
         if (snapshot.hasData) {
-          final isConnected = snapshot.data!;
+          final bool isConnected = snapshot.data!;
           if (isConnected) {
-            return child;
+            return child; // Return the child widget if connected
           } else {
             return Scaffold(
               body: Center(
@@ -34,8 +34,13 @@ class ConnectivityListener extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {
-                        connectivityService.checkConnectivity();
+                      onPressed: () async {
+                        // Refresh connectivity status
+                        final bool connected = await connectivityService.isConnected();
+                        if (connected) {
+                          // Rebuild the widget if reconnected
+                          (context as Element).markNeedsBuild();
+                        }
                       },
                       child: const Text('Refresh'),
                     ),
@@ -45,7 +50,7 @@ class ConnectivityListener extends StatelessWidget {
             );
           }
         } else {
-          return const Center(child: Text('Error'));
+          return const Center(child: Text('Error checking connectivity'));
         }
       },
     );

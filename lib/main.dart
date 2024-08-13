@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => AccountSetupBloc(FirebaseDatabase.instance.reference())),
         // Add other providers here if needed
       ],
-      child: ConnectivityListener(
+      child: ConnectivityCheckWidget(
         child: MaterialApp(
           title: 'Taxi App',
           debugShowCheckedModeBanner: false,
