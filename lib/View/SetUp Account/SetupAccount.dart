@@ -26,11 +26,9 @@ class _SetUpAccountState extends State<SetUpAccount> {
       body: BlocConsumer<AccountSetupBloc, AccountSetupState>(
         listener: (context, state) {
           if (state.isSuccess) {
+            // Navigate back or to another screen
             Navigator.pushNamed(context, RoutesName.googleMap);
             showSuccessfullyFlushbar(context, 'Account Created Successfully');
-
-
-            // Navigate back or to another screen
           } else if (state.isFailure) {
             showErrorFlushbar(context, 'SomeThing went Wrong!');
           }
